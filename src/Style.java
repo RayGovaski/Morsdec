@@ -9,20 +9,24 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
- // Classe dos estilos
-
+/**
+ * Classe responsável por gerenciar todos os estilos visuais da aplicação.
+ * Encapsula a criação e estilização de componentes UI, separando a
+ * apresentação da lógica de negócio.
+ */
 public class Style {
     // Constantes de cores
     public static final String PRIMARY_COLOR = "#6a9c78";      // Verde escuro
-    public static final String SECONDARY_COLOR = "#93c7a4";    // Verde medio
+    public static final String SECONDARY_COLOR = "#93c7a4";    // Verde médio
     public static final String BG_COLOR = "#d3ede1";           // Verde claro
-    public static final String TEXT_COLOR = "#2c463a";         // Verde escuro  texto
-    public static final String PANEL_BG_COLOR = "#e8f4ed";     // Cor fundo painel
-    public static final String INPUT_BG_COLOR = "#f5faf7";     // Cor de fundo
+    public static final String TEXT_COLOR = "#2c463a";         // Verde escuro para o texto
+    public static final String PANEL_BG_COLOR = "#e8f4ed";     // Cor de fundo para painéis
+    public static final String INPUT_BG_COLOR = "#f5faf7";     // Cor de fundo para campos de entrada
 
-
-     // Cria e configura o painel
-
+    /**
+     * Cria e configura o painel principal da aplicação.
+     * @return VBox configurado como layout principal
+     */
     public static VBox createMainLayout() {
         VBox mainLayout = new VBox(15);
         mainLayout.setPadding(new Insets(20));
@@ -30,9 +34,10 @@ public class Style {
         return mainLayout;
     }
 
-
-     // Cria e configura o painel de título com logo.
-
+    /**
+     * Cria e configura o painel de título com logo.
+     * @return VBox contendo o título e o logo
+     */
     public static VBox createTitlePanel() {
         // Título
         Label titleLabel = new Label("Tradutor de Código Morse");
@@ -52,6 +57,8 @@ public class Style {
         HBox logoBox = new HBox();
         logoBox.setAlignment(Pos.CENTER);
         logoBox.getChildren().add(logoView);
+
+        // Box do título
         VBox titleBox = new VBox(10);
         titleBox.setAlignment(Pos.CENTER);
         titleBox.getChildren().addAll(logoBox, titleLabel);
@@ -59,10 +66,10 @@ public class Style {
         return titleBox;
     }
 
-
-     // Cria e estiliza o campo de entrada de texto.
-
-
+    /**
+     * Cria e estiliza o campo de entrada de texto.
+     * @return TextField estilizado
+     */
     public static TextField createInputField() {
         TextField inputField = new TextField();
         inputField.setPromptText("Digite o texto ou código morse");
@@ -73,10 +80,10 @@ public class Style {
         return inputField;
     }
 
-
-     // Cria e configura os  botoes.
-
-
+    /**
+     * Cria e configura o painel de botões.
+     * @return HBox contendo os botões estilizados
+     */
     public static HBox createButtonPanel() {
         HBox buttonBox = new HBox(10);
         buttonBox.setAlignment(Pos.CENTER);
@@ -89,6 +96,12 @@ public class Style {
         return buttonBox;
     }
 
+    /**
+     * Cria e estiliza um botão com base nas cores fornecidas.
+     * @param text Texto do botão
+     * @param baseColor Cor base do botão
+     * @return Button estilizado
+     */
     public static Button createStyledButton(String text, String baseColor) {
         Button button = new Button(text);
         button.setFont(Font.font("Segoe UI", FontWeight.MEDIUM, 14));
@@ -111,6 +124,12 @@ public class Style {
         return button;
     }
 
+    /**
+     * Cria um botão de tamanho menor para controles secundários.
+     * @param text Texto do botão
+     * @param baseColor Cor base do botão
+     * @return Button estilizado com tamanho reduzido
+     */
     public static Button createSmallButton(String text, String baseColor) {
         Button button = createStyledButton(text, baseColor);
         button.setFont(Font.font("Segoe UI", FontWeight.NORMAL, 12));
@@ -119,9 +138,10 @@ public class Style {
         return button;
     }
 
-
-     // Cria e configura o painel de saída de texto.
-
+    /**
+     * Cria e configura o painel de saída de texto.
+     * @return VBox contendo o painel de resultado
+     */
     public static VBox createOutputPanel() {
         VBox outputPanel = new VBox(10);
         outputPanel.setStyle("-fx-background-color: " + PANEL_BG_COLOR + "; -fx-background-radius: 5; -fx-padding: 15;");
@@ -142,8 +162,10 @@ public class Style {
         return outputPanel;
     }
 
-     // Cria e configura o painel de visualização da árvore.
-
+    /**
+     * Cria e configura o painel de visualização da árvore.
+     * @return VBox contendo o painel da árvore
+     */
     public static VBox createTreePanel() {
         VBox treePanel = new VBox(10);
         treePanel.setStyle("-fx-background-color: " + PANEL_BG_COLOR + "; -fx-background-radius: 5; -fx-padding: 15;");
@@ -193,9 +215,12 @@ public class Style {
         return treePanel;
     }
 
-
-     // Ajusta cor hexadecimal
-
+    /**
+     * Ajusta o brilho de uma cor hexadecimal.
+     * @param hexColor Cor em formato hexadecimal
+     * @param factor Fator de ajuste (-1.0 a 1.0)
+     * @return String com a nova cor hexadecimal
+     */
     public static String adjustBrightness(String hexColor, double factor) {
         Color color = Color.web(hexColor);
         double red = clamp(color.getRed() + factor);
@@ -207,6 +232,12 @@ public class Style {
                 (int)(green * 255),
                 (int)(blue * 255));
     }
+
+    /**
+     * Limita um valor entre 0.0 e 1.0.
+     * @param value Valor a ser limitado
+     * @return Valor limitado entre 0.0 e 1.0
+     */
     private static double clamp(double value) {
         return Math.max(0, Math.min(1, value));
     }
